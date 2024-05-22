@@ -1,0 +1,21 @@
+[filter "lfs"]
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+[user]
+	name = Steven Moder
+	email = java20131114@gmail.com
+	signingkey = /home/sakurapuare/.ssh/id_ed25519.pub
+[gpg]
+	format = ssh
+[init]
+	defaultBranch = main
+[credential "https://github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = 
+	helper = !/usr/bin/gh auth git-credential
+[http]
+	postBuffer = 157286400
