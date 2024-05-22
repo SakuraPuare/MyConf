@@ -1,9 +1,10 @@
 import pathlib
 import os
 
-black_list = ['.git','LICENSE','README.md','install.sh','install.py']
+black_list = ['.git', 'LICENSE', 'README.md', 'install.sh', 'install.py']
 
 install_dest = pathlib.Path('~').expanduser()
+
 
 def mk_symlink(path):
     src: pathlib.Path = path.absolute()
@@ -25,10 +26,11 @@ def iterdir(path):
             iterdir(file)
         elif file.is_file() or file.is_symlink():
             mk_symlink(file)
-        
+
 
 def main():
     iterdir(pathlib.Path('.'))
+
 
 if __name__ == "__main__":
     main()
