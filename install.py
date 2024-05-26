@@ -17,6 +17,16 @@ def mk_symlink(path):
     print(f'{path} -> {dest}')
 
 
+def mk_copy(path):
+    src: pathlib.Path = path.absolute()
+    dest: pathlib.Path = install_dest / path
+    if dest.exists(follow_symlinks=False):
+        print(f'{dest} already exists')
+        os.remove(dest)
+    dest.write_bytes(src.read_bytes())
+    print(f'{path} -> {dest}')
+
+
 def iterdir(path):
     for file in path.iterdir():
         if file.name in black_list:
@@ -26,6 +36,7 @@ def iterdir(path):
             iterdir(file)
         elif file.is_file() or file.is_symlink():
             mk_symlink(file)
+            # mk_copy(file)
 
 
 def main():
