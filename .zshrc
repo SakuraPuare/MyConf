@@ -148,7 +148,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 
-export EDITOR='vim'
+export EDITOR='nvim'
 
 export LANG="zh_CN.UTF-8"
 export LANGUAGE="zh_CN.UTF-8"
@@ -159,6 +159,7 @@ source /usr/share/autojump/autojump.zsh
 
 export PATH="$PATH:/home/sakurapuare/.local/share/JetBrains/Toolbox/scripts"
 
+alias vim='nvim'
 alias ls='ls --color=auto'
 alias ll='ls -l --color=auto'
 alias la='ls -lad .* --color=auto'
@@ -217,3 +218,24 @@ alias github='github-desktop'
 source /usr/share/nvm/init-nvm.sh
 
 [ -s /opt/apollo/neo/packages/env-manager-dev/latest/scripts/auto_complete.bash ] && \. "/opt/apollo/neo/packages/env-manager-dev/latest/scripts/auto_complete.bash"
+[ -f /opt/mambaforge/etc/profile.d/conda.sh ] && source /opt/mambaforge/etc/profile.d/conda.sh
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/opt/mambaforge/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/opt/mambaforge/etc/profile.d/conda.sh" ]; then
+        . "/opt/mambaforge/etc/profile.d/conda.sh"
+    else
+        export PATH="/opt/mambaforge/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+
+if [ -f "/opt/mambaforge/etc/profile.d/mamba.sh" ]; then
+    . "/opt/mambaforge/etc/profile.d/mamba.sh"
+fi
+# <<< conda initialize <<<
+
