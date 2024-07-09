@@ -12,42 +12,15 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	{
-		"folke/tokyonight.nvim",
-		lazy = false,
-		priority = 1000,
-		opts = {},
-	},
-	{
-		"utilyre/barbecue.nvim",
-		name = "barbecue",
-		version = "*",
-		dependencies = {
-		  "SmiteshP/nvim-navic",
-		  "nvim-tree/nvim-web-devicons", -- optional dependency
-		},
-		opts = {
-		  -- configurations go here
-		},
-	},
-	{ 'wakatime/vim-wakatime', lazy = false },
-	'nvim-tree/nvim-web-devicons',
-	"SmiteshP/nvim-navic",
-    	-- LSP manager
-	"williamboman/mason.nvim",
-	"williamboman/mason-lspconfig.nvim",
-	"neovim/nvim-lspconfig",
-    "brenoprata10/nvim-highlight-colors",
-    "MeanderingProgrammer/markdown.nvim",
-    -- "tanvirtin/monokai.nvim",
-    -- "github/copilot.vim",
-    -- Vscode-like pictograms
-	{
+  "williamboman/mason.nvim",
+  "williamboman/mason-lspconfig.nvim",
+  "neovim/nvim-lspconfig",
+  "alexaandru/nvim-lspupdate",
+  {
 		"onsails/lspkind.nvim",
 		event = { "VimEnter" },
 	},
-	-- Auto-completion engine
-	{
+  {
 		"hrsh7th/nvim-cmp",
 		dependencies = {
 			"lspkind.nvim",
@@ -60,18 +33,37 @@ require("lazy").setup({
 			require("config.nvim-cmp")
 		end,
 	},
-	-- Code snippet engine
-	{
+  {
 		"L3MON4D3/LuaSnip",
 		version = "v2.*",
 	},
-})
 
+  { 'wakatime/vim-wakatime', lazy = false },
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    opts = {},
+  },
+  {
+    "utilyre/barbecue.nvim",
+    name = "barbecue",
+    version = "*",
+    dependencies = {
+      "SmiteshP/nvim-navic",
+      "nvim-tree/nvim-web-devicons", -- optional dependency
+    },
+    opts = {
+      theme = 'tokyonight',
+    },
+  },
+  {
+    'nvim-lualine/lualine.nvim',
+    dependencies = { 'nvim-tree/nvim-web-devicons' }
+  }
+})
 require("barbecue.ui").toggle(true)
 require("barbecue.ui").update(winnr)
-
--- triggers CursorHold event faster
-vim.opt.updatetime = 200
 
 require("barbecue").setup({
   create_autocmd = false, -- prevent barbecue from updating itself automatically

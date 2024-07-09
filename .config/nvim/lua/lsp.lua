@@ -1,3 +1,20 @@
+-- mason.lua
+local mason_status, mason = pcall(require, "mason")
+if not mason_status then
+	vim.notify("没有找到 mason")
+	return
+end
+local nlsp_status, nvim_lsp = pcall(require, "lspconfig")
+if not nlsp_status then
+	vim.notify("没有找到 lspconfig")
+	return
+end
+local mlsp_status, mason_lspconfig = pcall(require, "mason-lspconfig")
+if not mlsp_status then
+	vim.notify("没有找到 mason-lspconfig")
+	return
+end
+
 -- Note: The order matters: mason -> mason-lspconfig -> lspconfig
 require("mason").setup({
 	ui = {
@@ -10,8 +27,6 @@ require("mason").setup({
 })
 
 require("mason-lspconfig").setup({
-	-- A list of servers to automatically install if they're not already installed
-	ensure_installed = { "clangd", "pylsp", "lua_ls", "bashls", "rust_analyzer"},
 })
 
 local navic = require("nvim-navic")
@@ -22,6 +37,39 @@ local navic = require("nvim-navic")
 --     - the settings table is sent to the LSP
 --     - on_attach: a lua callback function to run after LSP attaches to a given buffer
 local lspconfig = require("lspconfig")
+
+
+require("mason-lspconfig").setup_handlers({
+	function(server_name)
+		require("lspconfig")[server_name].setup {}
+	end,
+	-- Next, you can provide targeted overrides for specific servers.
+	["lua_ls"] = function()
+		lspconfig.lua_ls.setup {
+			settings = {
+				Lua = {
+					diagnostics = {
+						globals = { "vim" }
+					}
+				}
+			}
+		}
+	end,
+	["clangd"] = function()
+		lspconfig.clangd.setup {
+			cmd = {
+				"clangd",
+				"--header-insertion=never",
+				"--query-driver=/opt/homebrew/opt/llvm/bin/clang",
+				"--all-scopes-completion",
+				"--completion-style=detailed",
+			}
+		}
+	end
+})
+
+
+
 
 -- Customized on_attach function
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
@@ -121,3 +169,48 @@ lspconfig.clangd.setup({
 lspconfig.ocamllsp.setup({
 	on_attach = on_attach,
 })
+
+navic.setup {
+	icons = {
+	  File = ' ',
+	  Module = ' ',
+	  Namespace = ' ',
+	  Package = ' ',
+	  Class = ' ',
+	  Method = ' ',
+	  Property = ' ',
+	  Field = ' ',
+	  Constructor = ' ',
+	  Enum = ' ',
+	  Interface = ' ',
+	  Function = ' ',
+	  Variable = ' ',
+	  Constant = ' ',
+	  String = ' ',
+	  Number = ' ',
+	  Boolean = ' ',
+	  Array = ' ',
+	  Object = ' ',
+	  Key = ' ',
+	  Null = ' ',
+	  EnumMember = ' ',
+	  Struct = ' ',
+	  Event = ' ',
+	  Operator = ' ',
+	  TypeParameter = ' '
+	},
+    lsp = {
+        auto_attach = true,
+        preference = nil,
+    },
+    highlight = true,
+    separator = " > ",
+    depth_limit = 0,
+    depth_limit_indicator = "..",
+    safe_output = true,
+    lazy_update_context = false,
+    click = true,
+    format_text = function(text)
+        return text
+    end,
+}

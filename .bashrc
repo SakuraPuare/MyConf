@@ -26,3 +26,35 @@ fi
 
 export WORKON_HOME=~/.virtualenvs
 source /usr/bin/virtualenvwrapper_lazy.sh
+source /home/sakurapuare/.local/share/vcpkg/scripts/vcpkg_completion.bash
+
+
+##-----------------------------------------------------
+## synth-shell-greeter.sh
+if [ -f /home/sakurapuare/.config/synth-shell/synth-shell-greeter.sh ] && [ -n "$( echo $- | grep i )" ]; then
+	source /home/sakurapuare/.config/synth-shell/synth-shell-greeter.sh
+fi
+
+##-----------------------------------------------------
+## synth-shell-prompt.sh
+if [ -f /home/sakurapuare/.config/synth-shell/synth-shell-prompt.sh ] && [ -n "$( echo $- | grep i )" ]; then
+	source /home/sakurapuare/.config/synth-shell/synth-shell-prompt.sh
+fi
+
+##-----------------------------------------------------
+## better-ls
+if [ -f /home/sakurapuare/.config/synth-shell/better-ls.sh ] && [ -n "$( echo $- | grep i )" ]; then
+	source /home/sakurapuare/.config/synth-shell/better-ls.sh
+fi
+
+##-----------------------------------------------------
+## alias
+if [ -f /home/sakurapuare/.config/synth-shell/alias.sh ] && [ -n "$( echo $- | grep i )" ]; then
+	source /home/sakurapuare/.config/synth-shell/alias.sh
+fi
+
+##-----------------------------------------------------
+## better-history
+if [ -f /home/sakurapuare/.config/synth-shell/better-history.sh ] && [ -n "$( echo $- | grep i )" ]; then
+	source /home/sakurapuare/.config/synth-shell/better-history.sh
+fi

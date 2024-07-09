@@ -90,6 +90,7 @@ ZSH_AUTOSUGGEST_MANUAL_REBIND=1
 # Set what highlighters will be used.
 # See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters.md
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets)
+ZSH_HIGHLIGHT_HIGHLIGHTERS+=(pattern cursor)
 
 # Customize the main highlighter styles.
 # See https://github.com/zsh-users/zsh-syntax-highlighting/blob/master/docs/highlighters/main.md#how-to-tweak-it
@@ -202,14 +203,15 @@ alias halt='sudo /sbin/halt'
 alias shutdown='sudo /sbin/shutdown'
 alias clashrestart='sudo systemctl restart clash.service'
 alias wget='wget -c'
-alias systemctl='sudo systemctl'
+#alias systemctl='sudo systemctl'
 alias cp='rsync -av'
 alias pacman='sudo pacman'
 #alias docker='sudo docker'
 #alias aem='sudo aem'
 
-PATH=$PATH:~/.config/nvim/bin
-PATH=~/.console-ninja/.bin:$PATH
+export PATH=$PATH:~/.config/nvim/bin
+export PATH=~/.console-ninja/.bin:$PATH
+export PATH="$PATH:$(go env GOBIN):$(go env GOPATH)/bin"
 
 alias pack='cd ~/Project/application-pnc && tar -zcvf ~/Desktop/apollo/$(date +%Y_%m_%d_%H_%M_%S).tar.gz modules/planning modules/routing'
 alias commiting='git add --all && git commit -m "Commit at $(date)" && pack'
@@ -241,3 +243,9 @@ fi
 
 export WORKON_HOME=~/.virtualenvs
 source /usr/bin/virtualenvwrapper_lazy.sh
+export VCPKG_ROOT=$HOME/.local/share/vcpkg
+
+autoload bashcompinit
+bashcompinit
+
+source /home/sakurapuare/.local/share/vcpkg/scripts/vcpkg_completion.zsh
